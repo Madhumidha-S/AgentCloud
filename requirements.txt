@@ -1,0 +1,5 @@
+# Baseline: standard-library only.
+#
+# Optional (local LLM, no API):
+# - llama-cpp-python
+

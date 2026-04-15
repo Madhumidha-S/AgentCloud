@@ -1,0 +1,6 @@
+logs/
+database.db
+__pycache__/
+*.pyc
+.DS_Store
+decription.txt
