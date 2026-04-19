@@ -1,5 +1,5 @@
-# Baseline: standard-library only.
-#
-# Optional (local LLM, no API):
-# - llama-cpp-python
+# Baseline is standard-library only. 
+# No external packages are strictly required for the core AgentCloud pipeline or Evaluation suite.
 
+# Optional: Local LLM Support (CPU-only GGUF inference)
+llama-cpp-python>=0.3.0
