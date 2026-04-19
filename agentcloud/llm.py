@@ -84,13 +84,15 @@ class LlamaCppClient:
 
     def complete(self, prompt: str) -> str:
         llm = getattr(self, "_llm")
-        out = llm(
-            prompt,
+        out = llm.create_chat_completion(
+            messages=[
+                {"role": "system", "content": "You are a precise JSON-only incident diagnosis engine."},
+                {"role": "user", "content": prompt}
+            ],
             max_tokens=self.max_tokens,
             temperature=self.temperature,
-            stop=["\n\n", "```"],
         )
-        return out["choices"][0]["text"]
+        return out["choices"][0]["message"]["content"]
 
 
 def build_llm_from_env() -> Optional[LLMClient]:
