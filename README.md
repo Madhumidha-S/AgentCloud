@@ -65,24 +65,32 @@ You can run the system to test specific failure cases by changing the `--scenari
 
 ---
 
-## LLM Integration
+## Hybrid AI & ML Integration
 
-By default, the `DiagnosisAgent` uses a robust, deterministic CPU-only fallback framework. However, true reasoning is unlocked by connecting an LLM.
+AgentCloud now utilizes a highly scalable **Hybrid AI Architecture**. 
 
-### Option A: Local LLM (no API, CPU-only)
-*Recommended for fully private, API-free inference. Uses `llama-cpp-python` under the hood to ensure exact chat-completions formatting without strict syntax errors.*
+Instead of routing every single log to a slow Generative LLM, the `DiagnosisAgent` uses a fine-tuned **DistilBERT** model (`agentcloud/models/cloudsec-model`) to classify anomalies with near-zero latency. 
+If the ML model detects an anomaly with high confidence (>= 0.40), it instantly mitigates the issue. If the model is unsure, it gracefully falls back to the Generative LLM for deep reasoning.
 
-We recommend the lightweight **Qwen 0.5B Instruct** model via Hugging Face.
+### Training the ML Classifier
+You can locally fine-tune the DistilBERT model on your own incident data:
+```bash
+# Ensure you have installed the PyTorch/HuggingFace dependencies
+pip install -r requirements.txt
+
+# Run the training script (Uses agentcloud/data/train.jsonl)
+python3 train_model.py
+```
+
+### Option A: Local LLM Fallback (Qwen GGUF)
+*Recommended for fully private, API-free generative fallbacks.*
 
 ```bash
-# 1. Ensure the bindings are installed in your venv
-python3 -m pip install llama-cpp-python
-
-# 2. Make a models directory and download the GGUF model
+# 1. Download the GGUF model
 mkdir -p models
 curl -L -o models/qwen2.5-0.5b-instruct-q4_k_m.gguf "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_k_m.gguf"
 
-# 3. Increase the default context window and path
+# 2. Increase context window
 export AGENTCLOUD_LOCAL_MODEL_CTX="4096"
 export AGENTCLOUD_LOCAL_MODEL_PATH="models/qwen2.5-0.5b-instruct-q4_k_m.gguf"
 

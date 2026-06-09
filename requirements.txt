@@ -1,5 +1,8 @@
-# Baseline is standard-library only. 
-# No external packages are strictly required for the core AgentCloud pipeline or Evaluation suite.
+# Hybrid AI Machine Learning Stack
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.14.0
+scikit-learn>=1.3.0
 
-# Optional: Local LLM Support (CPU-only GGUF inference)
+# Optional: Local LLM Support (Generative Fallback)
 llama-cpp-python>=0.3.0

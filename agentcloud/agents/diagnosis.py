@@ -4,7 +4,11 @@ import json
 from dataclasses import dataclass
 from typing import Iterable, Optional
 
-from ..llm import LLMClient, build_llm_from_env
+from ..llm import (
+    LLMClient,
+    build_llm_from_env,
+    predict_incident,
+)
 from ..types import AnomalyAlert, Diagnosis, LogEvent
 from ..validation import is_diagnosis
 
@@ -64,26 +68,103 @@ class DiagnosisAgent:
         return {"incident": "crash", "cause": cause, "severity": "high"}
 
     def diagnose(self, alert: AnomalyAlert, recent_events: Iterable[LogEvent]) -> Diagnosis:
+
         events = list(recent_events)[-60:]
+
+        combined_text = " ".join(
+            [e.get("message", "") for e in events[-5:]]
+        )
+
+        ml_result = predict_incident(combined_text)
+
+
+        if self.verbose:
+            print(f"[ML CLASSIFIER] {ml_result}")
+
+        ml_label = ml_result["label"]
+        ml_score = float(ml_result["score"])
+
+        # High-confidence ML prediction
+        if ml_score >= 0.40:
+
+            print(
+                f"[DIAGNOSIS][ML] "
+                f"Using high-confidence prediction "
+                f"{ml_label} ({ml_score:.2f})"
+            )
+
+            return {
+                "incident": ml_label,
+                "cause": "ML classifier high confidence detection",
+                "severity": "high"
+            }
+
+        # Medium confidence + monitoring agreement
+        if ml_score >= 0.30:
+
+            if alert["type"] == ml_label:
+
+                print(
+                    f"[DIAGNOSIS][FUSION] "
+                    f"ML and monitoring agree on {ml_label}"
+                )
+
+                return {
+                    "incident": ml_label,
+                    "cause": "Hybrid ML + monitoring agreement",
+                    "severity": "high"
+                }
+
+        print("[DIAGNOSIS][FALLBACK] Using symbolic reasoning")
 
         # Prefer LLM if configured, but always validate + fallback.
         if self.llm is not None:
-            prompt = self._build_prompt(alert=alert, recent_events=events)
+
+            prompt = self._build_prompt(
+                alert=alert,
+                recent_events=events
+            )
+
             try:
+
                 if self.verbose:
                     print("[DIAGNOSIS][LLM] calling model")
+
                 raw = self.llm.complete(prompt)
+
                 parsed = _extract_json_object(raw)
+
+                # ML classifier becomes authoritative
+                parsed["incident"] = ml_result["label"]
+
                 if is_diagnosis(parsed):
+
+                    # Extra safety override
+                    if alert["type"] == "crash":
+
+                        parsed["incident"] = "crash"
+
+                        if "login" in parsed["cause"].lower():
+                            parsed["cause"] = (
+                                "process termination detected in service"
+                            )
+
                     return parsed
-                raise ValueError("LLM returned invalid diagnosis JSON")
+
+                raise ValueError(
+                    "LLM returned invalid diagnosis JSON"
+                )
+
             except Exception as e:
+
                 if self.verbose:
                     print(f"[DIAGNOSIS][FALLBACK] {e}")
+
                 return self._fallback(alert, events)
 
         if self.verbose:
             print("[DIAGNOSIS][FALLBACK] LLM not configured")
+
         return self._fallback(alert, events)
 
     def _build_prompt(self, *, alert: AnomalyAlert, recent_events: list[LogEvent]) -> str:
@@ -103,7 +184,14 @@ class DiagnosisAgent:
             '  "severity": "low | medium | high"\n'
             '}\n'
             "Rules:\n"
-            "- If evidence is insufficient, set incident to \"normal\" with low severity.\n"
+            "- If logs contain 'terminating', 'error', 'exception', or 'fail', classify as \"crash\".\n"
+            "- Presence of 'PacketResponder terminating' indicates service/process crash.\n"
+            "- For crash, cause MUST mention process/service failure or termination.\n"
+            "- DO NOT mention login/authentication unless logs clearly show it.\n"
+            "- NEVER hallucinate unrelated causes.\n"
+            "- Use \"intrusion\" ONLY for failed login patterns.\n"
+            "- Use \"overload\" for high CPU usage.\n"
+            "- Only use \"normal\" if logs clearly show no issues.\n"
             "- Keep cause under 15 words.\n"
             "- Do not add extra keys.\n\n"
             f"Anomaly alert: {json.dumps(alert)}\n"

@@ -1,7 +1,25 @@
-logs/
-database.db
+# Environments
+.venv/
+venv/
+
+# Python Cache
 __pycache__/
 *.pyc
-.DS_Store
-decription.txt
+
+# Logs & Databases
+logs/
+*.db
+*.db-shm
+*.db-wal
+
+# Models & ML Outputs
+# Exceeds GitHub 100MB limit, should not be committed without Git LFS
 models/*.gguf
+agentcloud/models/cloudsec-model/
+results/
+
+# OS Files
+.DS_Store
+
+# Temporary Project Files
+decription.txt

