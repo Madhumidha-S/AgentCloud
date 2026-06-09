@@ -1,48 +1,79 @@
-# AgentCloud
+# AgentCloud: Autonomous Hybrid AI Incident Response
 
-AgentCloud is a lightweight, CPU-efficient, multi-agent system that simulates a cloud environment and autonomously detects, diagnoses, and mitigates system incidents using LLM-based reasoning and agentic workflows. 
+## Overview
+AgentCloud is an advanced, lightweight, multi-agent system designed to simulate a cloud environment and autonomously detect, diagnose, and mitigate system incidents. It leverages a cutting-edge Hybrid AI Architecture, combining the lightning-fast classification speeds of a fine-tuned DistilBERT model with the deep, generative reasoning capabilities of local Large Language Models (LLMs) like Qwen.
 
-At its core, this project demonstrates a modern **ReAct (Reason + Act)** loop for autonomous server and incident response without requiring a GPU or massive external dependencies.
+At its core, this project demonstrates a highly scalable ReAct (Reason + Act) loop for autonomous server operations without requiring massive external dependencies or API lock-ins.
 
----
+## Key Features
+- **Hybrid AI Diagnosis Routing**: Rather than passing every log to a slow, expensive LLM, AgentCloud intercepts logs using a fine-tuned local DistilBERT classifier. If the ML model is highly confident (>= 0.40 score), it instantly resolves the anomaly. If confidence is low, it gracefully falls back to the Generative LLM.
+- **Autonomous Learning & Memory**: Powered by an embedded SQLite ledger, AgentCloud remembers its past failures. If a mitigation strategy fails, the Planning Agent consults the Memory Agent and dynamically pivots to a new strategy in the future.
+- **Fully Local & Air-gapped**: The entire pipeline operates locally on CPU/GPU using Hugging Face Transformers and optional local LLMs.
+- **Ablation & Evaluation Suite**: Includes a rigorous evaluation framework to measure Mean Time To Recovery (MTTR), tool accuracy, and success rates.
 
 ## System Architecture
 
 The project is structured into a sequential agentic pipeline that operates continuously:
 
-`Log Generator → Monitoring → Diagnosis → Planning → Execution → Memory`
+`Log Generator -> Monitoring -> Diagnosis -> Planning -> Execution -> Memory`
 
-1. **Simulator (Log Generator)**: Generates real-time mock cloud metric logs (e.g. CPU spikes, authentication failures, segfaults). Available scenarios: `normal`, `overload`, `crash`, `intrusion`, and `mixed`.
-2. **Monitoring Agent**: Anomaly detection logic. Scans continuous streaming logs using time-windowed thresholds to instantly alert on anomalous behavior.
-3. **Diagnosis Agent**: Uses an LLM (with a pure CPU-fallback) to classify the anomaly (root cause & severity). Guarantees JSON schema constraint formatting dynamically.
-4. **Planning Agent**: Decides the mitigation route (`restart_service`, `block_ip`, `isolate_server`, `reroute_traffic`). Actively pulls context from Memory to reuse successful strategies or dodge failed ones.
-5. **Execution Agent**: Simulates the system commands internally. Exposes success/failure states back to the pipeline.
-6. **Memory Agent**: Powered by an embedded SQLite database. Stores a long-term ledger of incidents and actions, allowing the system to demonstrate "Failure -> Recovery" learning over multiple iterations.
+1. **Simulator (Log Generator)**: Generates real-time mock cloud metric logs.
+2. **Monitoring Agent**: Scans continuous streaming logs using time-windowed thresholds to instantly alert on anomalous behavior.
+3. **Diagnosis Agent**: The core Hybrid AI router. Passes alerts to the DistilBERT ML model. If confidence is insufficient, prompts the LLM (Qwen/OpenAI). If the LLM is offline, utilizes a deterministic symbolic fallback algorithm.
+4. **Planning Agent**: Decides the mitigation route (restart_service, block_ip, isolate_server, reroute_traffic). Actively pulls context from Memory.
+5. **Execution Agent**: Simulates the system commands internally against a mock SimState.
+6. **Memory Agent**: Stores a long-term ledger of incidents and actions, allowing the system to demonstrate "Failure -> Recovery" learning.
 
----
+## Supported Scenarios
+You can run the system to test specific failure cases by changing the `--scenario` flag. The simulator supports:
+- `normal`: Standard cloud operation with fluctuating metrics
+- `overload`: Massive CPU and traffic spikes triggering node load anomalies
+- `intrusion`: Coordinated IP brute-force and failed auth bursts
+- `crash`: Unexpected service segmentation faults and offline nodes
+- `mixed`: (Default) Rotates randomly through all of the above
+
+## Dataset & ML Classifier
+The Diagnosis Agent utilizes a `distilbert-base-uncased` model fine-tuned for Sequence Classification to categorize anomalies into four labels: normal, overload, crash, and intrusion.
+
+### The Dataset
+The model was trained using the Loghub HDFS (Hadoop Distributed File System) Dataset.
+Download: https://www.kaggle.com/datasets/ayenuryrr/loghub-hdfs-hadoop-distributed-file-system-data
+
+To process the raw 1.5GB `hdfs.log` file into a lightweight format suitable for Hugging Face Transformers, we use the `convert.py` script. It extracts log levels, services, and uses keyword heuristics to tag the raw data into a `train.jsonl` file.
 
 ## Installation & Setup
 
-AgentCloud can be run strictly using standard Python libraries.
+AgentCloud requires the PyTorch and Hugging Face ecosystem.
 
 ```bash
 # Clone the repository
-git clone https://github.com/Madhumidha-S/AgentCloud.git
+git clone https://github.com/yourusername/AgentCloud.git
 cd AgentCloud
 
 # Set up a virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install requirements
+# Install the Machine Learning Stack
 pip install -r requirements.txt
 ```
 
----
+## Training the Model
+By default, the repository excludes the massive ML model weights. You must train the model locally using the provided scripts.
+
+1. Download the `hdfs.log` from Kaggle and place it in `agentcloud/data/raw/hdfs.log`.
+2. Convert the raw logs into the training dataset:
+```bash
+python3 agentcloud/convert.py
+```
+3. Fine-tune the DistilBERT model. This will output the trained weights to `agentcloud/models/cloudsec-model/`:
+```bash
+python3 train_model.py
+```
 
 ## Quickstart
 
-Run a completely simulated autonomous cycle using the default CPU deterministic fallback (no LLM required):
+Run a completely simulated autonomous cycle using the ML model and deterministic fallback:
 
 ```bash
 python3 -m agentcloud.main --scenario mixed --max-events 5
@@ -55,35 +86,12 @@ If you want to view the raw JSON line logs in real-time as they are generated by
 python3 -m agentcloud.main --scenario mixed --max-events 5 --show-logs
 ```
 
-### Supported Scenarios
-You can run the system to test specific failure cases by changing the `--scenario` flag. The simulator supports:
-- `normal`: Standard cloud operation with fluctuating metrics
-- `overload`: Massive CPU and traffic spikes triggering node load anomalies
-- `intrusion`: Coordinated IP brute-force and failed auth bursts
-- `crash`: Unexpected service segmentation faults and offline nodes
-- `mixed`: (Default) Rotates randomly through all of the above
+## Generative LLM Fallback Integration
 
----
-
-## Hybrid AI & ML Integration
-
-AgentCloud now utilizes a highly scalable **Hybrid AI Architecture**. 
-
-Instead of routing every single log to a slow Generative LLM, the `DiagnosisAgent` uses a fine-tuned **DistilBERT** model (`agentcloud/models/cloudsec-model`) to classify anomalies with near-zero latency. 
-If the ML model detects an anomaly with high confidence (>= 0.40), it instantly mitigates the issue. If the model is unsure, it gracefully falls back to the Generative LLM for deep reasoning.
-
-### Training the ML Classifier
-You can locally fine-tune the DistilBERT model on your own incident data:
-```bash
-# Ensure you have installed the PyTorch/HuggingFace dependencies
-pip install -r requirements.txt
-
-# Run the training script (Uses agentcloud/data/train.jsonl)
-python3 train_model.py
-```
+By default, the `DiagnosisAgent` uses a robust, deterministic CPU-only fallback if the ML model's confidence is low. However, deep reasoning is unlocked by connecting a Generative LLM fallback.
 
 ### Option A: Local LLM Fallback (Qwen GGUF)
-*Recommended for fully private, API-free generative fallbacks.*
+Recommended for fully private, API-free generative fallbacks.
 
 ```bash
 # 1. Download the GGUF model
@@ -93,29 +101,23 @@ curl -L -o models/qwen2.5-0.5b-instruct-q4_k_m.gguf "https://huggingface.co/Qwen
 # 2. Increase context window
 export AGENTCLOUD_LOCAL_MODEL_CTX="4096"
 export AGENTCLOUD_LOCAL_MODEL_PATH="models/qwen2.5-0.5b-instruct-q4_k_m.gguf"
-
-# 4. Run the demo
 python3 -m agentcloud.main --scenario overload --max-events 5
 ```
 
-### Option B: OpenAI API
-If you prefer a heavier reasoning engine (like `gpt-4o-mini`):
-
+### Option B: Cloud API Fallback (OpenAI)
+If you prefer a heavier reasoning engine (e.g., gpt-4o-mini):
 ```bash
 export OPENAI_API_KEY="sk-..."
 export AGENTCLOUD_LLM_MODEL="gpt-4o-mini"
 python3 -m agentcloud.main --scenario mixed --max-events 5
 ```
 
----
-
 ## Evaluation & Ablations
 
-AgentCloud has built-in features for research and rigorous reporting:
+AgentCloud includes a robust research suite to measure the effectiveness of its cognitive components.
 
 ### Memory Learning Demo
-Forces an incident to occur, simulates a failure using a bad mitigation path, stores that failure, and successfully resolves the incident the second time around by referencing past failures.
-
+Force an incident to fail its first mitigation, triggering the Memory Agent to log the failure. On the second occurrence, watch the system intelligently pivot its strategy to achieve recovery:
 ```bash
 python3 -m agentcloud.main --demo-learning --tick 0.02 --trace-file logs/trace.jsonl
 ```
@@ -123,26 +125,28 @@ python3 -m agentcloud.main --demo-learning --tick 0.02 --trace-file logs/trace.j
 ### Ablation Studies
 Turn off specific cognitive components to calculate success differentials:
 ```bash
-# Without the Memory Agent (cannot recall past successes/failures)
+# Disable the Memory Agent (system will repeat past mistakes)
 python3 -m agentcloud.main --scenario mixed --max-events 5 --no-memory
 
-# Without the Planning Agent (defaults to an imperative fallback map)
+# Disable the Planning Agent (defaults to an imperative fallback map)
 python3 -m agentcloud.main --scenario mixed --max-events 5 --no-planning
 ```
 
-### Evaluation Runner (Metrics)
-Run massive scenario blocks across episodes to automatically calculate **Success Rate**, **Tool Accuracy**, and **Mean Time To Recovery (MTTR)**:
-
+### Evaluation Runner
+Run massive scenarios across multi-incident episodes to automatically calculate Success Rate, Tool Accuracy, and Mean Time To Recovery (MTTR):
 ```bash
-# Run baseline evaluations
 python3 -m agentcloud.evaluation --scenario mixed --episodes 10 --max-incidents 5
 
 # Compare against ablations
 python3 -m agentcloud.evaluation --scenario mixed --episodes 10 --max-incidents 5 --no-memory
-python3 -m agentcloud.evaluation --scenario mixed --episodes 10 --max-incidents 5 --no-planning
 ```
 
----
+## Future Roadmap
+
+- **Vector Semantic Memory**: Upgrade the SQLite MemoryAgent from strict string signature matching to semantic vector embeddings (e.g., FAISS or ChromaDB) to allow fuzzy matching of similar, but not identical, incidents.
+- **Kubernetes Execution Layer**: Replace the simulated SimState Execution Agent with actual Kubernetes API bindings to autonomously restart failing real-world pods.
+- **RAG for Playbooks**: Implement Retrieval-Augmented Generation to allow the LLM Diagnosis Agent to read Markdown incident response playbooks before outputting a diagnosis.
+- **Dashboard Web UI**: Develop a lightweight FastAPI + React dashboard to visualize the real-time agentic trace graph and confidence scores.
 
 ## Project Outputs
 - **Logs**: Continuous logs trace out to `logs/cloud.jsonl`.
